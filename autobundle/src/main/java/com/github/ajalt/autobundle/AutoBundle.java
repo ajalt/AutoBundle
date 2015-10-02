@@ -137,7 +137,7 @@ public class AutoBundle {
     private static String getKey(Field field) {
         BundleArgument annotation = field.getAnnotation(BundleArgument.class);
         return TextUtils.isEmpty(annotation.key()) ?
-                "BUNDLE-ARG" + field.getName()
+                "BUNDLE-ARG-" + field.getName()
                 : annotation.key();
     }
 }
