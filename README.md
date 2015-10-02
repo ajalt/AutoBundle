@@ -7,9 +7,25 @@ Automated packing and unpacking of Android Bundles.
 Android's Bundle system works, but packing and unpacking the argument for
 Bundles is tedious and repetitive. This library takes care of the boilerplate.
 
+## Installation
+
+AutoBundle uses [jitpack](https://jitpack.io/) to host its builds. Add the
+following to your gradle file to use AutoBundle:
+
+```groovy
+repositories {
+       maven { url "https://jitpack.io" }
+}
+
+dependencies {
+   compile 'com.github.ajalt:AutoBundle:1.0'
+}
+``` 
+
 ## Usage
 
-AutoBundle is set up by annotating the fields of a class with the `BundleArgument` annotation. Using it is this easy:
+AutoBundle is set up by annotating the fields of a class with the
+`BundleArgument` annotation. Using it is this easy:
 
 ```java
 
