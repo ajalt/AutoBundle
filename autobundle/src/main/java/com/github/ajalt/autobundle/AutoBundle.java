@@ -3,16 +3,27 @@ package com.github.ajalt.autobundle;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.util.Map;
 
 public class AutoBundle {
-    public static final String PACK_INTENT_ARGUMENT_KEY = "PACK_INTENT_ARGUMENT_KEY";
+    public static final String PACK_INTENT_ARGUMENT_KEY = "AUTO_BUNDLE_PACK_INTENT_ARGUMENT_KEY";
+
+    public static void unpackIntent(Intent source, Object target) {
+        unpackBundle(source.getExtras(), target);
+    }
 
     public static void unpackBundle(Bundle source, Object target) {
         if (source == null || target == null) {
             throw new IllegalArgumentException("AutoBundle arguments cannot be null");
+        }
+
+        // Check if this is coming from a packIntent call
+        Bundle intentBundle = source.getBundle(PACK_INTENT_ARGUMENT_KEY);
+        if (intentBundle != null) {
+            source = intentBundle;
         }
 
         for (Field field : target.getClass().getDeclaredFields()) {
@@ -58,7 +69,6 @@ public class AutoBundle {
         }
 
         for (Field field : source.getClass().getDeclaredFields()) {
-
             if (!field.isAnnotationPresent(BundleArgument.class)) continue;
             field.setAccessible(true);
             try {
@@ -68,6 +78,8 @@ public class AutoBundle {
                 throw new RuntimeException(e);
             }
         }
+
+        Log.d("AutoBundle", "map: " + bundleMap);
     }
 
     private static String getKey(Field field) {

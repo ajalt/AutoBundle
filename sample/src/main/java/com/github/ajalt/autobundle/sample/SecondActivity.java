@@ -35,9 +35,9 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         Arguments args = new Arguments();
-        AutoBundle.unpackBundle(getIntent().getExtras(), args);
+        AutoBundle.unpackIntent(getIntent(), args);
 
-        ((TextView) findViewById(R.id.text)).setText(args.intArg == null ? "null" : args.intArg.toString());
-        ((TextView) findViewById(R.id.text2)).setText(args.stringArg == null ? null : args.stringArg);
+        ((TextView) findViewById(R.id.text)).setText(args.intArg.toString());
+        ((TextView) findViewById(R.id.text2)).setText(args.stringArg);
     }
 }
