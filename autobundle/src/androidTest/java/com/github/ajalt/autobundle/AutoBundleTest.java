@@ -36,6 +36,19 @@ public class AutoBundleTest {
     }
 
     @Test
+    public void testPackBundleArguments() {
+        final String arg = "Test string value";
+        final int arg2 = 31415;
+        TestBundleArguments input = new TestBundleArguments(arg, arg2);
+
+        Bundle bundle = new Bundle();
+        AutoBundle.packBundle(input, bundle);
+
+        assertThat(bundle.getString("BUNDLE-ARG-stringArg"), is(arg));
+        assertThat(bundle.getInt(TestArguments.INT_ARG_KEY), is(arg2));
+    }
+
+    @Test
     public void testCreateBundle() throws Exception {
         final String arg = "Test string value";
         final int arg2 = 31415;
@@ -56,6 +69,21 @@ public class AutoBundleTest {
         Bundle bundle = AutoBundle.createBundle(input);
 
         TestArguments output = new TestArguments();
+        AutoBundle.unpackBundle(bundle, output);
+
+        assertThat(output.stringArg, is(arg));
+        assertThat(output.intArg, is(arg2));
+    }
+
+    @Test
+    public void testUnpackBundleArguments() throws Exception {
+        final String arg = "Test string value";
+        final int arg2 = 31415;
+        TestBundleArguments input = new TestBundleArguments(arg, arg2);
+
+        Bundle bundle = AutoBundle.createBundle(input);
+
+        TestBundleArguments output = new TestBundleArguments();
         AutoBundle.unpackBundle(bundle, output);
 
         assertThat(output.stringArg, is(arg));

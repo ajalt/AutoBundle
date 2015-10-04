@@ -47,6 +47,8 @@ public class AutoBundle {
             throw new IllegalArgumentException("AutoBundle arguments cannot be null");
         }
 
+        boolean unpackAll = target.getClass().isAnnotationPresent(BundleArguments.class);
+
         // Check if this is coming from a packIntent call
         Bundle intentBundle = source.getBundle(PACK_INTENT_ARGUMENT_KEY);
         if (intentBundle != null) {
@@ -54,7 +56,7 @@ public class AutoBundle {
         }
 
         for (Field field : target.getClass().getDeclaredFields()) {
-            if (!field.isAnnotationPresent(BundleArgument.class)) continue;
+            if (!unpackAll && !field.isAnnotationPresent(BundleArgument.class)) continue;
             Object o = source.get(getKey(field));
             field.setAccessible(true);
             try {
@@ -94,10 +96,13 @@ public class AutoBundle {
      * @param target A {@link Bundle} into which values from all annotated source fields will be
      *               added.
      */
+    @SuppressWarnings("unchecked")
     public static void packBundle(Object source, Bundle target) {
         if (source == null || target == null) {
             throw new IllegalArgumentException("AutoBundle arguments cannot be null");
         }
+
+        boolean packAll = source.getClass().isAnnotationPresent(BundleArguments.class);
 
         Map<String, Object> bundleMap = null;
         for (Class<?> cls = target.getClass(); cls != null; cls = cls.getSuperclass()) {
@@ -116,7 +121,7 @@ public class AutoBundle {
         }
 
         for (Field field : source.getClass().getDeclaredFields()) {
-            if (!field.isAnnotationPresent(BundleArgument.class)) continue;
+            if (!packAll && !field.isAnnotationPresent(BundleArgument.class)) continue;
             field.setAccessible(true);
             try {
                 Object o = field.get(source);
@@ -136,7 +141,7 @@ public class AutoBundle {
      */
     private static String getKey(Field field) {
         BundleArgument annotation = field.getAnnotation(BundleArgument.class);
-        return TextUtils.isEmpty(annotation.key()) ?
+        return annotation == null || TextUtils.isEmpty(annotation.key()) ?
                 "BUNDLE-ARG-" + field.getName()
                 : annotation.key();
     }

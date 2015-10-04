@@ -7,13 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.github.ajalt.autobundle.AutoBundle;
-import com.github.ajalt.autobundle.BundleArgument;
+import com.github.ajalt.autobundle.BundleArguments;
 
 public class SecondActivity extends AppCompatActivity {
+    @BundleArguments
     public static class Arguments {
-        @BundleArgument
         public Integer intArg;
-        @BundleArgument
         public String stringArg;
 
         public Arguments() {}
