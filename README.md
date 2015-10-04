@@ -1,4 +1,4 @@
-# AutoBundle [![jitpack](https://img.shields.io/github/release/ajalt/AutoBundle.svg?label=JitPack)](https://jitpack.io/#ajalt/AutoBundle/1.0)
+# AutoBundle [![jitpack](https://img.shields.io/github/release/ajalt/AutoBundle.svg?label=JitPack)](https://jitpack.io/#ajalt/AutoBundle/1.1)
 
 Automated packing and unpacking of Android Bundles.
 
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-   compile 'com.github.ajalt:AutoBundle:1.0'
+   compile 'com.github.ajalt:AutoBundle:1.1'
 }
 ``` 
 
@@ -121,7 +121,7 @@ public void composeEmail() {
 
 ### Javadoc
 
-[The full javadocs can be found here](https://jitpack.io/com/github/ajalt/AutoBundle/1.0/javadoc).
+[The full javadocs can be found here](https://jitpack.io/com/github/ajalt/AutoBundle/1.1/javadoc).
 
 ## License
 
