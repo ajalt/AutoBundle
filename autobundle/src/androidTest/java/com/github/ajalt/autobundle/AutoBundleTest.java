@@ -86,8 +86,8 @@ public class AutoBundleTest {
         TestBundleArguments output = new TestBundleArguments();
         AutoBundle.unpackBundle(bundle, output);
 
-        assertThat(output.stringArg, is(arg));
-        assertThat(output.intArg, is(arg2));
+        assertThat(output.getStringArg(), is(arg));
+        assertThat(output.getIntArg(), is(arg2));
     }
 
     @Test
